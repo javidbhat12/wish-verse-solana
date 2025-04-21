@@ -6,7 +6,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
+// Create a client
 const queryClient = new QueryClient();
+
+// Application title
+document.title = "WishVerse | Wishes on Solana";
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
