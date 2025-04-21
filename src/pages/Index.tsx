@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import WishForm from "@/components/WishForm";
@@ -7,9 +6,10 @@ import WalletConnect from "@/components/WalletConnect";
 import StarField from "@/components/StarField";
 import { connectWallet, disconnectWallet, fetchWishes, submitWish } from "@/utils/anchor";
 import { Toaster } from "@/components/ui/sonner";
+import { useWallet } from "@/context/WalletContext";
 
 const Index: React.FC = () => {
-  const [walletAddress, setWalletAddress] = useState<string | null>(null);
+  const { walletAddress, setWalletAddress } = useWallet();
   const [wishes, setWishes] = useState<Wish[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -49,7 +49,6 @@ const Index: React.FC = () => {
 
   const handleSubmitWish = async (wishText: string) => {
     if (!walletAddress) return;
-    
     const newWish = await submitWish(wishText, walletAddress);
     setWishes([newWish, ...wishes]);
   };
@@ -99,14 +98,20 @@ const Index: React.FC = () => {
       <footer className="container mx-auto py-6 px-4 mt-12 border-t border-secondary/20 text-center text-sm text-muted-foreground relative z-10">
         <p>WishVerse - Powered by Solana</p>
         <div className="flex justify-center mt-2 gap-4">
-          <Button variant="link" size="sm" className="text-muted-foreground">
-            About
+          <Button variant="link" size="sm" className="text-muted-foreground" asChild>
+            <a href="https://superteam.fun/" target="_blank" rel="noopener noreferrer">
+              About
+            </a>
           </Button>
-          <Button variant="link" size="sm" className="text-muted-foreground">
-            GitHub
+          <Button variant="link" size="sm" className="text-muted-foreground" asChild>
+            <a href="https://github.com/" target="_blank" rel="noopener noreferrer">
+              GitHub
+            </a>
           </Button>
-          <Button variant="link" size="sm" className="text-muted-foreground">
-            Explorer
+          <Button variant="link" size="sm" className="text-muted-foreground" asChild>
+            <a href="https://explorer.solana.com" target="_blank" rel="noopener noreferrer">
+              Explorer
+            </a>
           </Button>
         </div>
       </footer>
